@@ -1,0 +1,897 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf840
+{\fonttbl\f0\fnil\fcharset0 Verdana;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red255\green255\blue255;\red0\green0\blue0;
+}
+{\*\expandedcolortbl;;\csgray\c0;\csgray\c100000;\csgenericrgb\c0\c0\c0;
+}
+\paperw11900\paperh16840\margl1440\margr1440\vieww23080\viewh17560\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b\fs24 \cf0 AUTOMATED ANNOTATION README
+\b0 \
+\
+This process runs using  the  
+\b \cf2 \cb3 \CocoaLigature0 Job script: ANNOTATION_SGE.sh 
+\b0 \cf0 \cb1 \CocoaLigature1 \
+\
+
+\b Directories:
+\b0 \
+\
+1. scripts\
+2. downloads : for all raw downloaded data\
+3. processed : for all processed data\
+4. logs: for all log files generated from each script.\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf2 \cb3 \CocoaLigature0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \cb1 \CocoaLigature1 \
+The whole process takes about 2 hours to run and the job script requests 40Gb of memory. \
+\
+The script  \cf4 \cb3 \CocoaLigature0 MGI_Marker_ID_to_entrez_hbp.py needs 12GB memory, everything else needs less.\
+\
+The \cf0 \cb1 \CocoaLigature1 py27-numpy-pandas environment is required for this process. It is created in the job script.\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf4 \cb3 \CocoaLigature0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf4 \
+#########################################################\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \cb1 \CocoaLigature1 1.  DOWNLOADS\
+\
+Script: \cf2 \cb3 \CocoaLigature0 annotation_downloads_hbp.py
+\b0 \cf0 \cb1 \CocoaLigature1 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf2 \cb3 \CocoaLigature0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \cb1 \CocoaLigature1 The following files are downloaded from the internet:\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf2 \cb3 \CocoaLigature0 MGI_PhenoGenoMP.rpt\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf0 \cb1 \CocoaLigature1 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf2 \cb3 \CocoaLigature0 MGI_EntrezGene.rpt\
+\
+MPheno_OBO.ontology\
+				\
+gene_info.gz		\
+\
+homologene.data\
+\
+gene2go.gz\
+		\
+go-basic.obo		\
+	\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf2 ###########################################################\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf2 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf0 \cb1 \CocoaLigature1 2. MOUSE
+\b0 \cf2 \cb3 \CocoaLigature0  
+\b PHENOTYPE ANNOTATION
+\b0   \
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\b \cf2 2.1 Mouse ID_mapping
+\b0 \
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf0 \cb1 \CocoaLigature1 Script:\cf4 \cb3 \CocoaLigature0  MGI_Marker_ID_to_entrez_hbp.py\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b0 \cf4 Gets the entrez IDs, symbol and  gene type for all the MGI marker IDs from the NCBI_gene_info file\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf4 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf0 \cb1 \CocoaLigature1 Input files:\cf4 \cb3 \CocoaLigature0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf4 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\b0 \cf4 MGI_EntrezGene.rpt\
+gene_info.gz\
+\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\b \cf4 Out_file directory: /MP_ID_MAPPING
+\b0 \
+\
+MGI_markerID_to_entrezID_ALL.txt : ALL genes\
+MGI_markerID_to_entrezID_pc.txt. : protein coding genes only\
+\
+
+\b Format: 
+\b0 tab delimited text\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf0 \cb1 \CocoaLigature1 Fields:
+\b0  MGI_marker_ID 	Type	GeneID	Symbol	Synonyms.  type_of_gene\cf4 \cb3 \CocoaLigature0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf4 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\b \cf4 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \cb1 \CocoaLigature1 2.2  Constructing mouse \'91evidence \'91 files.\
+\
+Script:
+\b0 \cf2 \cb3 \CocoaLigature0  
+\b Mouse_pheno_JH_hbp.py\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\b0 \cf4 Maps mouse single gene phenotypes to NCBI \cf0 \cb1 \CocoaLigature1 entrez gene ID\cf4 \cb3 \CocoaLigature0  genes.\
+\
+\pard\tx566\pardeftab720\partightenfactor0
+\cf0 \cb1 \CocoaLigature1 Transgenes were removed and records were selected  that only have one gene manipulated per per phenotype.\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf0 Input files:
+\b0 \
+1.  MGI_PhenoGenoMP.rpt\
+2.  MGI_markerID_to_entrezID_ALL.txt\cf4 \cb3 \CocoaLigature0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\b \cf2 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf2 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf4 Out_file directory: MP_EVIDENCE\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf0 \cb1 \CocoaLigature1 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b0 \cf0 1. MGI_PhenoGeno_single_gene_ALL.txt\
+2. MGI_PhenoGeno_single_protein_coding_gene.txt\cf2 \cb3 \CocoaLigature0 \
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf4 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf0 \cb1 \CocoaLigature1 Format:\
+
+\b0 One line per unique Geno:pheno pairing fields are tab-delimited,  multiple alleles, genetic background, pubmed iDs  etc are collapsed and pipe delimited.
+\b \
+
+\b0 Empty values in the lists are replaced with 'None\'92, so that the order in pipe delimited lists are preserved.\
+\
+
+\b Fields:
+\b0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf2 \cb3 \CocoaLigature0 MGI_marker_ID  entrezGeneID  Symbol    type_of_gene      Allelic_Composition   Genetic_Background    Pheno_ID    PubMed_ID  \
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf4 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\b \cf2 2.3  \cf0 \cb1 \CocoaLigature1 Constructing mouse phenotype ontology tree\cf2 \cb3 \CocoaLigature0 \
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \cb1 \CocoaLigature1 Script:  
+\b0 \cf4 \cb3 \CocoaLigature0 obo_to_tree_mouse_hbp.py\
+\
+Constructs the ontology tree for mouse phenotypes.\cf2 \
+
+\b \cf0 \cb1 \CocoaLigature1 \
+input file:\
+
+\b0 MPheno_OBO.ontology
+\b \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b0 \cf2 \cb3 \CocoaLigature0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\b \cf4 Out_file directory: /MP_TREES\cf0 \cb1 \CocoaLigature1 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b0 \cf0 \
+1. MP_tree.txt\
+\
+
+\b Format:
+\b0  xml\
+\
+2. MP_attr.txt\
+\
+
+\b Format: 
+\b0   tab delimited text\
+\
+
+\b Fields : 
+\b0 id  name	def	alt_id
+\b \
+
+\b0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf4 \cb3 \CocoaLigature0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\b \cf4 2.4 Constructing \cf0 \cb1 \CocoaLigature1 Mouse phenotype \cf4 \cb3 \CocoaLigature0 ontology paths.
+\b0 \
+\
+Constructs ontology paths from the tree for mouse phenotypes.\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\b \cf0 \cb1 \CocoaLigature1 Script: 
+\b0 \cf4 \cb3 \CocoaLigature0 obo_tree_to_paths_hbp.py\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf0 \cb1 \CocoaLigature1 Input files:
+\b0 \cf4 \cb3 \CocoaLigature0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf4 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \cb1 \CocoaLigature1 MP_tree.txt\
+MP_attr.txt
+\b \
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf4 \cb3 \CocoaLigature0 Out_file directory: /MP_TREES\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf0 \cb1 \CocoaLigature1 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b0 \cf0 1. MP_paths.txt\
+\
+
+\b Format:
+\b0  tab delimited text, one line per path\
+
+\b \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b0 \cf2 \cb3 \CocoaLigature0 2. MP_attr_level.txt\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf0 \cb1 \CocoaLigature1 Format:
+\b0  tab delimited text, one line per phenotype.\
+\
+
+\b Fields : 
+\b0 id	name	def	alt_id   level\cf2 \cb3 \CocoaLigature0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf4 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf4 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\b \cf0 \cb1 \CocoaLigature1 2.5 ANNOTATION: adding annotations to mouse phenotypes.
+\b0 \cf4 \cb3 \CocoaLigature0 \
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf0 \cb1 \CocoaLigature1 Script:
+\b0 \cf4 \cb3 \CocoaLigature0  
+\b expand_pheno_mouse_hbp.py \
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\b0 \cf0 \cb1 \CocoaLigature1 Annotations for  protein coding genes only are added in the automated process, this can be altered  by using a different \'91evidence\'92  input file if required.
+\b \cf4 \cb3 \CocoaLigature0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf4 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \cb1 \CocoaLigature1 Input files: \
+
+\b0 MP_paths.txt\
+MP_attr.txt\
+MGI_PhenoGeno_single_protein_coding_gene.txt
+\b \
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf4 \cb3 \CocoaLigature0 Out_file directory: /GENE_SETS/MAMMALIAN_PHENOTYPE/MOUSE\cf0 \cb1 \CocoaLigature1 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+MGI_single_gene_Pheno_protein_coding_annotation.txt
+\b0 \cf2 \cb3 \CocoaLigature0 \
+\
+
+\b \cf0 \cb1 \CocoaLigature1 Format:
+\b0 \cf2 \cb3 \CocoaLigature0 : tab delimited text\
+ \
+
+\b \cf0 \cb1 \CocoaLigature1 Fields : 
+\b0 \cf2 \cb3 \CocoaLigature0 Mouse_Pheno_ID  Mouse_Pheno_name  Mouse entrez gene IDs (pipe delimited)  Mouse entrez gene symbols(pipe delimited)\
+\
+\
+###########################################################
+\b \cf4 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\b0 \cf4 \
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf4 \cb1 \CocoaLigature1 3.  MAPPING BETWEEN MOUSE PHENOTYPES AND HUMAN GENES\
+\
+3.1  \cb3 \CocoaLigature0 Extracting mouse and human genes from homologene:\cb1 \CocoaLigature1 \
+\
+
+\b0 All human and mouse genes are extracted from the file\'92 homologene data\'92 using unix in the shell script.
+\b \
+ \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf4 \cb3 \CocoaLigature0 Out_file directory: /HOMOLOGENE\cb1 \CocoaLigature1 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf4 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b0 \cf4 \cb3 \CocoaLigature0 mouse_homologene_jh.txt\
+human_homologene_jh.txt\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf4 Format:
+\b0  \cf0 \cb1 \CocoaLigature1 tab delimited text\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf0 Fields:
+\b0 \
+HID (HomoloGene group id)   Taxonomy ID    Gene ID    Gene Symbol    Protein gi       Protein accession\cf4 \cb3 \CocoaLigature0 \
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf4 \cb1 \CocoaLigature1 \
+3.2 Extracting human and mouse gene types:
+\b0 \cb3 \CocoaLigature0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf4 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf0 \cb1 \CocoaLigature1 Script:
+\b0 \cf4 \cb3 \CocoaLigature0  homologene_gene_set_extractor_hbp.py \
+\
+Creates file for each species of:\
+a) all genes minus pseudo genes\
+b) protein coding genes only\
+\
+\
+
+\b \cf0 \cb1 \CocoaLigature1 Input files:
+\b0 \cf4 \cb3 \CocoaLigature0 \
+\
+mouse_homologene_jh.txt\
+human_homologene_jh.txt\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\b \cf4 Out_file directory: /HOMOLOGENE
+\b0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf4 \
+homologene_human_all_minus_pseudo.txt\
+homologene_mouse_all_minus_pseudo.txt\
+\
+homologene_human_protein_coding.txt\
+homologene_mouse_protein_coding.txt\
+\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf4 Format:
+\b0  \cf0 \cb1 \CocoaLigature1 tab delimited text\cf4 \cb3 \CocoaLigature0 \
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf0 \cb1 \CocoaLigature1 Fields: 
+\b0 HID (HomoloGene group id)    Gene ID    Gene Symbol \cf4 \cb3 \CocoaLigature0 \
+\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf4 3.3 Extracting \cf0 \cb1 \CocoaLigature1 one-to-one, one-to-many, many to one relationships from homologene for all mouse to human homologues.
+\b0 \cf4 \cb3 \CocoaLigature0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf4 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\b \cf0 \cb1 \CocoaLigature1 Script:
+\b0 \cf4 \cb3 \CocoaLigature0  homologene_merge_hbp.py\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf0 \cb1 \CocoaLigature1 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf0 Input files:\
+\
+
+\b0 human_homologene_jh.txt\
+mouse_homologene_jh.txt\
+
+\b \
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf4 \cb3 \CocoaLigature0 Out_file directory: /HOMOLOGENE\cf0 \cb1 \CocoaLigature1 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+
+\b0 hm_one_to_one_homol.txt\
+hm_one_to_many_homol.txt\
+hm_many_to_one_homol.txt\
+hm_many_to_many_homol.txt\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf0 \
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf0 Format:
+\b0  tab delimited text
+\b \
+\
+Fields:  
+\b0 Homologene ID:
+\b  
+\b0 \cf2 \cb3 \CocoaLigature0 'hGENE_ID', 'hGENE_SYMBOL','mGENE_ID','mGENE_SYMBOL\cf0 \cb1 \CocoaLigature1 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf2 \cb3 \CocoaLigature0 ###########################################################\cf0 \cb1 \CocoaLigature1 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf4 \cb3 \CocoaLigature0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\b \cf4 4. ANNOTATING MOUSE PHENOTYPES WITH HUMAN HOMOLOGUES OF ASSOCIATED MOUSE GENES.
+\b0 \
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf0 \cb1 \CocoaLigature1 Script: 
+\b0 \cf4 \cb3 \CocoaLigature0  Mouse_pheno_to_human_PC_gene_hbp.py\
+
+\b \cf0 \cb1 \CocoaLigature1 \
+Input files: \
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b0 \cf2 \cb3 \CocoaLigature0 MGI_single_gene_Pheno_protein_coding_annotation.txt\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf0 \cb1 \CocoaLigature1 \
+
+\b0 hm_one_to_one_homol.txt
+\b \
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf4 \cb3 \CocoaLigature0 Out_file directory: GENE_SETS/\cf0 \cb1 \CocoaLigature1 MAMMALIAN_PHENOTYPE/MOUSE/\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\b0 \cf2 \cb3 \CocoaLigature0 MGI_single_gene_Pheno_to_human_protein_coding_gene.txt\
+\
+\pard\pardeftab720\partightenfactor0
+\cf0 \cb1 \expnd0\expndtw0\kerning0
+\CocoaLigature1 This file contains all of the gene sets derived from mouse phenotypes. The gene sets comprise  entrez ids of HUMAN protein coding genes that are annotated to MOUSE phenotypes. The genes are one-to-one homologues of the mouse genes.\cf2 \cb3 \kerning1\expnd0\expndtw0 \CocoaLigature0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\b \cf0 \cb1 \CocoaLigature1 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+Format: 
+\b0 tab delimited text
+\b \
+\
+Fields: 
+\b0 MP ID   pheno name  human genes  human symbols\
+\pard\pardeftab720\partightenfactor0
+\cf0 \expnd0\expndtw0\kerning0
+\
+This file is in the format:\
+Phenotype id. Phenotype name  pipe-delimted entrez gene ids   pipe delimted entrez gene symbols:\kerning1\expnd0\expndtw0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf2 \cb3 \CocoaLigature0 ###########################################################\cf0 \cb1 \CocoaLigature1 \
+\cf2 \cb3 \CocoaLigature0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf4 5.  Converting mouse gene sets to Magma format.\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\b0 \cf0 \cb1 \CocoaLigature1 Input file:  MGI_single_gene_Pheno_to_human_protein_coding_gene.txt. ( ALL gene sets)\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\b \cf4 \cb3 \CocoaLigature0 Out_file directory:
+\b0 \cf0 \cb1 \CocoaLigature1  
+\b \expnd0\expndtw0\kerning0
+GENE_SETS/MAMMALIAN_PHENOTYPE/MOUSE/MOUSE_MAGMA_FORMAT\cf4 \cb3 \kerning1\expnd0\expndtw0 \CocoaLigature0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\b0 \cf2 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\b \cf0 \cb1 \CocoaLigature1 a) Script:
+\b0  MGI_gene_sets_to_magma_hbp.py\
+\
+This script converts the \'91master\'92  file of gene sets to \expnd0\expndtw0\kerning0
+gene sets containing a minimum of 10 genes per set  in magma format.\kerning1\expnd0\expndtw0 \
+\
+Output file: \expnd0\expndtw0\kerning0
+MGI_single_gene_pheno_to_human_10_MAGMA.txt\
+\
+Magma format: gene set name  tab  space delimited  entrez gene ids\cf2 \cb3 \kerning1\expnd0\expndtw0 \CocoaLigature0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf2 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf0 \cb1 \expnd0\expndtw0\kerning0
+\CocoaLigature1 b) 
+\b \kerning1\expnd0\expndtw0 Script: 
+\b0 Mouse_subsets_to_Magma_hbp.py
+\b \
+\
+\pard\pardeftab720\partightenfactor0
+
+\b0 \cf0 This script can be used to convert any user defined subsets of MGI ids to magma format.\expnd0\expndtw0\kerning0
+\
+\
+In the automation the subsets derived are in the folder : MOUSE_SUBSETS_CNS: behaviour, development, cellular_morphology, cellular_physiology, region_tract_morphology.\cf2 \cb3 \kerning1\expnd0\expndtw0 \CocoaLigature0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf2 \
+\pard\pardeftab720\partightenfactor0
+\cf0 \cb1 \expnd0\expndtw0\kerning0
+\CocoaLigature1 Output files:  \
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf2 \cb3 \kerning1\expnd0\expndtw0 \CocoaLigature0 MGI_behaviour_MAGMA_subset.txt\
+MGI_cellular_morphology_MAGMA_subset.txt\
+MGI_cellular_physiology_MAGMA_subset.txt\
+MGI_development_MAGMA_subset.txt\
+MGI_region_tract_morphology_MAGMA_subset.txt\cf4 \
+\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf2 ###########################################################\cf4 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf4 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf4 \
+6.  GO: constructing gene sets from GO annotations.\
+\
+6.1 \cf0 \cb1 \CocoaLigature1 Constructing the evidence files:
+\b0 \cf4 \cb3 \CocoaLigature0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf4 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf0 \cb1 \CocoaLigature1 Script: 
+\b0 \cf4 \cb3 \CocoaLigature0  human_gene2go_extract_hbp.py \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf4 \
+This script extracts human data from the NCBI gene2go file. All negative qualifiers are removed:\
+'NOT colocalizes_with', 'NOT contributes_to', 'NOT\'92.\
+Blank values in the input file are '-', where all the values in a list in the output data are '-', they have been replaced with 'None' in the output file\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf2 This script uses two sets of GO evidences codes ALL and STRICT.\
+\
+STRICT excludes: IEA, NAS, RCA\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\b \cf4 Out_file directory: processed/GO_EVIDENCE\cf0 \cb1 \CocoaLigature1 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b0 \cf2 \cb3 \CocoaLigature0 \
+four evidence files:\
+\
+ALL evidence codes + ALL genes: \cf0 \cb1 \CocoaLigature1 Gene_to_GO_ALL_ev_ALL_genes_evidence.txt\cf2 \cb3 \CocoaLigature0 \
+\
+ALL evidence codes + protein coding genes: \cf0 \cb1 \CocoaLigature1 Gene_to_GO_ALL_ev_PC_genes_evidence.txt\cf2 \cb3 \CocoaLigature0 \
+\
+STRICT evidence codes + ALL genes: \cf0 \cb1 \CocoaLigature1 Gene_to_GO_STRICT_ev_ALL_genes_evidence.txt\cf2 \cb3 \CocoaLigature0 \
+\
+STRICT evidence codes + protein coding genes: \cf0 \cb1 \CocoaLigature1 GO_EVIDENCE/Gene_to_GO_STRICT_ev_PC_genes_evidence.txt\
+\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf0 Format: 
+\b0 tab delimited text, multiple values in a field are pipe delimited.
+\b \
+\
+Fields:
+\b0  entrez gene Id 	  entrez gene symbol   GO terms (pipe delimited)   Evidence codes (pipe delimited)    qualifiers (pipe delimited)  Pubmed ids (pipe delimited) \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf4 \cb3 \CocoaLigature0 \
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\b \cf4 6.2 Generating GO \cf0 \cb1 \CocoaLigature1 ontology trees
+\b0 \cf4 \cb3 \CocoaLigature0 \
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf0 \cb1 \CocoaLigature1 Script:\cf4 \cb3 \CocoaLigature0  GO_obo_to_tree_hbp.py 
+\b0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf4 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf0 \cb1 \CocoaLigature1 Infile:
+\b0  go-basic.obo.txt\
+\
+
+\b Out_files:
+\b0 \
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\b \cf4 \cb3 \CocoaLigature0 Out_file directory: /
+\b0 \cf2 GO_TREES\cf0 \cb1 \CocoaLigature1 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+BP_tree.txt\
+MF_tree.txt\
+CC_tree.txt\
+\
+
+\b Format:  xml
+\b0 \
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\b \cf4 \cb3 \CocoaLigature0 Out_file directory: /
+\b0 \cf2 GO_ATTRIBUTES\cf0 \cb1 \CocoaLigature1 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+BP_attr.txt\
+MF_attr.txt\
+CC_attr.txt\
+\
+
+\b Format:
+\b0     tab delimited text\
+\
+
+\b Fields : 
+\b0 id	name	def	alt_id\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf4 \cb3 \CocoaLigature0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf0 \cb1 \CocoaLigature1 6.3 Processing  GO trees to paths
+\b0 \
+\
+
+\b Script: \cf2 \cb3 \CocoaLigature0 GO_trees_to_paths_JH.py
+\b0 	
+\b \cf0 \cb1 \CocoaLigature1 \
+\
+
+\b0 Infiles:\
+\
+BP_tree.txt\
+MF_tree.txt\
+CC_tree.txt\
+\
+BP_attr.txt\
+MF_attr.txt\
+CC_attr.txt\
+\
+\
+Outfiles:\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\b \cf4 \cb3 \CocoaLigature0 Out_file directory: 
+\b0 processed/\cf2 GO_PATHS\cf0 \cb1 \CocoaLigature1 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf0 \
+
+\b0 BP_paths.txt\
+MF_paths.txt\
+CC_paths.txt\
+\
+
+\b Format:
+\b0  tab delimited text, one line per path\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\b \cf4 \cb3 \CocoaLigature0 Out_file directory:\cf0 \cb1 \CocoaLigature1  
+\b0 \cf4 \cb3 \CocoaLigature0 processed/\cf2 GO_ATTRIBUTES_UPDATED\cf0 \cb1 \CocoaLigature1 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 BP_attr_level.txt\
+MF_attr_level.txt\
+CC_attr_level.txt\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf2 \cb3 \CocoaLigature0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf0 \cb1 \CocoaLigature1 Format:
+\b0  tab delimited text, one line per phenotype.\
+\
+
+\b Fields : 
+\b0 id	  name	def	alt_id   level\cf4 \cb3 \CocoaLigature0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf4 \
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf0 \cb1 \CocoaLigature1 6.4 Expanding the GO term  to gene annotations.\
+\
+Script:
+\b0  \cf4 \cb3 \CocoaLigature0 expand_GO2_hbp.py\cf2 	
+\b \cf0 \cb1 \CocoaLigature1 \
+\
+
+\b0 Infiles:\
+\
+Gene_to_GO_ALL_ev_ALL_genes_evidence.txt\
+Gene_to_GO_ALL_ev_PC_genes_evidence.txt\
+Gene_to_GO_STRICT_ev_ALL_genes_evidence.txt\
+Gene_to_GO_STRICT_ev_PC_genes_evidence.txt\
+
+\b \
+
+\b0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\b \cf4 \cb3 \CocoaLigature0 Out_file directory: \cf0 \cb1 \CocoaLigature1  
+\b0 \cf4 \cb3 \CocoaLigature0 processed/\cf2 GO_ANNOTATIONS\cf0 \cb1 \CocoaLigature1 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf2 \cb3 \CocoaLigature0 BP_ALL_PC.txt		\
+CC_ALL_PC.txt		\
+MF_ALL_PC.txt\
+BP_STRICT_PC.txt	\
+CC_STRICT_PC.txt	\
+MF_STRICT_PC.txt\cf4 \
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf0 \cb1 \CocoaLigature1 Format:
+\b0  tab delimited text, one line per GO_ID.\cf4 \cb3 \CocoaLigature0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf4 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf0 \cb1 \CocoaLigature1 Fields:  
+\b0 GO_ID      GO_ID_name    entrez gene Id (pipe delimited)   entrez gene symbol (pipe delimited)\
+\
+These three files are concatenated in the job script to make a final output files for the whole GO ontology:\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf2 \cb3 \CocoaLigature0 GO_ALL_PC.txt				\
+GO_STRICT_PC.txt\cf0 \cb1 \CocoaLigature1 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+This file is moved to the MAGMA directory for processing the gene sets into MAGMA format.\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\b \cf4 \cb3 \CocoaLigature0 Out_file directory: processed/\cf0 \cb1 \CocoaLigature1 GENE_SETS/GO
+\b0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf4 \cb3 \CocoaLigature0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf4 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\b \cf4 6.5 Generating list of GO term parents and gene sets.\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf0 \cb1 \CocoaLigature1 Script:
+\b0  \cf4 \cb3 \CocoaLigature0  GO_gene_checker_hbp.py  \
+\
+Generates GO term, the list of genes associated with that term and the parents of the  GO term for ALL gene sets.\
+\
+Infiles:\
+\
+*paths.txt\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \cb1 \CocoaLigature1 *attr.txt\
+*expand.txt\
+*\cf2 \cb3 \CocoaLigature0 ALL_PC.txt\cf0 \cb1 \CocoaLigature1 \
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\b \cf4 \cb3 \CocoaLigature0 Out_file directory: 
+\b0 processed/\cf2 GO_GENE_CHECK\cf0 \cb1 \CocoaLigature1 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 \
+Outfile names:\
+\
+BP_ALL_id_genes_parents.txt\
+MF_ALL_id_genes_parents.txt\cf4 \cb3 \CocoaLigature0 \
+\cf0 \cb1 \CocoaLigature1 CC_ALL_id_genes_parents.txt\cf4 \cb3 \CocoaLigature0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf4 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf0 \cb1 \CocoaLigature1 Format: 
+\b0 tab delimited text, one line per GO_ID.\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf4 \cb3 \CocoaLigature0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf0 \cb1 \CocoaLigature1 Fields:
+\b0 \cf4 \cb3 \CocoaLigature0  GO term \cf0 \cb1 \CocoaLigature1 entrez gene Id (pipe delimited)  \cf4 \cb3 \CocoaLigature0  parent_list\cf0 \cb1 \CocoaLigature1 (pipe delimited)\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf4 \cb3 \CocoaLigature0 \
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b \cf4 6.6 Converting GO gene sets to Magma format.\
+\
+\pard\pardeftab720\partightenfactor0
+
+\b0 \cf0 \cb1 \expnd0\expndtw0\kerning0
+\CocoaLigature1 Gene sets derived from human protein coding genes annotated to GO terms, for the whole of GO (all three ontologies together) .\cf2 \cb3 \kerning1\expnd0\expndtw0 \CocoaLigature0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf0 \cb1 \CocoaLigature1 \
+Script: GO_gene_sets_to_magma_hbp.py\
+\
+Input files: \
+\pard\pardeftab720\partightenfactor0
+\cf0 \expnd0\expndtw0\kerning0
+\
+Two master files \
+GO_ALL_PC.txt\
+GO_STRICT_PC.txt\
+\
+GO_ALL: derived using all GO evidence codes.\
+GO_STRICT: RCA, NAS and IEA  evidence codes removed: \
+\
+\pard\pardeftab720\partightenfactor0
+\cf0 \kerning1\expnd0\expndtw0 Output folder: \expnd0\expndtw0\kerning0
+ processed/GENE_SETS/GO/GO_MAGMA_FORMAT\
+\
+Gene sets  in magma format limited to 10-2000 genes per set for GO.\kerning1\expnd0\expndtw0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardeftab720\pardirnatural\partightenfactor0
+\cf2 \cb3 \CocoaLigature0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardeftab720\pardirnatural\partightenfactor0
+\cf0 \cb1 \CocoaLigature1 Format: \cf2 \cb3 \CocoaLigature0 tab delimited txt, one gene set per line.\
+\
+\cf0 \cb1 \CocoaLigature1 Fields:  \cf2 \cb3 \CocoaLigature0 Gene set name  tab  space delimited entrez gene ids.\cf0 \cb1 \CocoaLigature1 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf0 \
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf2 \cb3 \CocoaLigature0 ###########################################################\cf0 \cb1 \CocoaLigature1 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf0 \
+\
+\
+\pard\pardeftab720\partightenfactor0
+\cf0 \expnd0\expndtw0\kerning0
+\
+\
+\
+ \
+\
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf2 \cb3 \kerning1\expnd0\expndtw0 \CocoaLigature0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf2 \
+\
+\
+\
+\
+\
+\
+  }
