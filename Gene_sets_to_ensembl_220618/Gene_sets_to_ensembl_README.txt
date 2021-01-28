@@ -1,7 +1,7 @@
 Written by Janet Harwood June 22nd 2018.
+----------------------------------------
 
 Script gene_sets_entrez_to_ensembl_long.py takes long format gene sets with entrez gene ids and converts them to ENSEMBL gene ids.
-
 
 Script gene_sets_entrez_to_ensembl_wide.py takes gene sets with one gene set per line with entrez gene ids and converts them to ENSEMBL gene ids.
 
@@ -25,11 +25,7 @@ python gene_sets_entrez_to_ensembl_long.py
 This script is dependent on the python packages: ‘re’ and ‘ ‘default dict’
 
 
-The Annotation file taken to do the id conversion from ncbi gene to ENSEMBL was derived by Kyoko , from the PGC: ENSG.genes.txt
-
-
-She downloaded these data using R from ensembl using Biomart.
-
+The ENSG.genes.txt file was used to do the id conversion from NCBI genes to ENSEMBL. It was derived by Dr. Kyoko Watanabe, from Prof. Danielle Posthuma's group (https://ctg.cncr.nl/research_teams/psychiatric_and_statistical_genomics/).
 
 This is her code:
 
@@ -42,8 +38,7 @@ ENSG.genes <- getBM(attributes = attributes, filters="chromosome_name", values=c
 ENSG.genes <- ENSG.genes[with(ENSG.genes, order(chromosome_name, start_position)),]
 ENSG.genes <- ENSG.genes[order(ENSG.genes$chromosome_name),]
 
-
-The ncbi mapping file ncbi_human_entrez_to_ensembl_all_18_6_2018.txt was derived from the ncbi gene info file by Janet Harwood.
+The NCBI mapping file ncbi_human_entrez_to_ensembl_all_18_6_2018.txt was derived from the NCBI gene info file by Dr. Janet Harwood at Cardiff University.
 
 It contains all human genes: entrez gene id: symbol: ENSEMBL gene id: gene type
 
@@ -62,8 +57,3 @@ entrez gene id: ensembl gene id: type of gene: gene symbol: annotation source
 ensembl_GRCh37 = ENSG.genes.txt file
 
 ncbi = ncbi_human_entrez_to_ensembl_all_18_6_2018.txt
-
-
-
-
-
