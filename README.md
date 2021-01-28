@@ -16,11 +16,8 @@ of
 [AUTOMATED\_ANNOTATION\_README.rtf](ANNOTATION_AUTO/README/AUTOMATED_ANNOTATION_README.rtf):
 *“GO: constructing gene sets from GO annotations”*.
 
-<<<<<<< Updated upstream
- 
-=======
 The file
-[GO\_STRICT\_PC\_10-2000\_MAGMA.txt](GO_STRICT_PC_10-2000_MAGMA_ensembl_magma.txt)
+[GO\_STRICT\_PC\_10-2000\_MAGMA\_ensembl.txt](GO_STRICT_PC_10-2000_MAGMA_ensembl.txt)
 contains sets of between 10 and 2000 protein coding genes derived from
 GO annotations (release 09/11/2020), as described in the
 [PGC3-SCZ](https://doi.org/10.1101/2020.09.12.20192922) paper. Entrez
@@ -40,4 +37,3 @@ reference the main
 
 Please submit suggestions and bug-reports at
 <https://github.com/janetcharwood/pgc3-scz_wg-genesets/issues>.
->>>>>>> Stashed changes
